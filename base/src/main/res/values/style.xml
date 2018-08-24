@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.toolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <!--&lt;!&ndash;设置menu中item的图标颜色&ndash;&gt;-->
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="colorControlNormal">#ffffff</item>
+    </style>
+
+    <!--标题与NavigationIcon的距离-->
+    <style name="Toolbar.MyStyle" parent="AppTheme.toolbar">
+        <item name="contentInsetStart">0dp</item>
+        <item name="titleTextColor">#ffffff</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <!-- 设置toobar的菜单下拉位置 -->
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="overlapAnchor">false</item>
+    </style>
+</resources>

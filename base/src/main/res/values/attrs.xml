@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LeftRightAlignTextView">
+        <attr name="custom_left_text" format="string" />
+        <attr name="custom_right_text" format="string" />
+        <attr name="custom_right_icon" format="reference" />
+        <attr name="custom_has_next_icon" format="boolean" />
+        <attr name="custom_right_edit" format="boolean" />
+        <attr name="custom_single_line" format="boolean" />
+        <attr name="custom_keep_text_from_tv" format="boolean" />
+        <attr name="custom_right_edit_max_length" format="integer" />
+    </declare-styleable>
+</resources>
