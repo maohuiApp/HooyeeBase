@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" />
+<!-- 一下为嵌套滑动，顺滑的处理方式 -->
+
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/main_bg"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<cn.kidyn.qdmedical160.view.PageHearView-->
+        <!--android:id="@+id/page_hear_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_50dp"-->
+        <!--app:center_text="@string/hospital_dep"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:right_one_drawable="@drawable/share"-->
+        <!--app:right_two_drawable="@drawable/selector_uncollection" />-->
+
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/swipe_refresh_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/page_hear_view"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/page_hear_view">-->
+
+        <!--<android.support.design.widget.CoordinatorLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<android.support.design.widget.AppBarLayout-->
+                <!--android:id="@+id/app_bar_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/white">-->
+
+                <!--<android.support.design.widget.CollapsingToolbarLayout-->
+                    <!--android:id="@+id/collapsingToolbarLayout"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+                    <!--<ScrollView-->
+                        <!--android:id="@+id/sv_scrollview"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/main_bg">-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="vertical">-->
+                            <!--&lt;!&ndash; 加载 &ndash;&gt;-->
+                            <!--<RelativeLayout-->
+                                <!--android:id="@+id/rl_loading"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content">-->
+
+                                <!--<LinearLayout-->
+                                    <!--android:id="@+id/layout_loading"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="@dimen/half_dip"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:orientation="horizontal">-->
+
+                                    <!--<ProgressBar-->
+                                        <!--android:layout_width="@dimen/dimen_20dp"-->
+                                        <!--android:layout_height="@dimen/dimen_20dp"-->
+                                        <!--android:indeterminateBehavior="repeat"-->
+                                        <!--android:indeterminateDrawable="@drawable/listview_progress_large"-->
+                                        <!--android:indeterminateDuration="200"-->
+                                        <!--android:indeterminateOnly="true" />-->
+
+                                    <!--<TextView-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="@dimen/dimen_100dp"-->
+                                        <!--android:layout_marginLeft="@dimen/dimen_5dp"-->
+                                        <!--android:layout_marginStart="@dimen/dimen_5dp"-->
+                                        <!--android:gravity="center"-->
+                                        <!--android:text="@string/loading_hos_info"-->
+                                        <!--android:textColor="@color/gray"-->
+                                        <!--android:textSize="@dimen/dimen_16sp" />-->
+                                <!--</LinearLayout>-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_load_failed"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="@dimen/dimen_100dp"-->
+                                    <!--android:layout_centerInParent="true"-->
+                                    <!--android:background="@color/white"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="@string/load_failed_click_to_reload"-->
+                                    <!--android:textColor="@color/blue"-->
+                                    <!--android:textSize="@dimen/dimen_14sp"-->
+                                    <!--android:visibility="gone" />-->
+                            <!--</RelativeLayout>-->
+
+                            <!--<include-->
+                                <!--android:id="@+id/ic_base_info"-->
+                                <!--layout="@layout/layout_hospital_basic_info" />-->
+
+                            <!--<include-->
+                                <!--android:id="@+id/ic_extra_info"-->
+                                <!--layout="@layout/layout_hospital_extra" />-->
+                        <!--</LinearLayout>-->
+                    <!--</ScrollView>-->
+                <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+            <!--</android.support.design.widget.AppBarLayout>-->
+
+            <!--<android.support.v4.widget.NestedScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+                <!--<cn.kidyn.qdmedical160.view.ScrollViewPager-->
+                    <!--android:id="@+id/view_pager"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:visibility="visible"-->
+                    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+            <!--</android.support.v4.widget.NestedScrollView>-->
+        <!--</android.support.design.widget.CoordinatorLayout>-->
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+<!--</LinearLayout>-->
