@@ -10,4 +10,12 @@
         <attr name="custom_keep_text_from_tv" format="boolean" />
         <attr name="custom_right_edit_max_length" format="integer" />
     </declare-styleable>
+    <declare-styleable name="AutoMovableView">
+        <attr name="custom_hide_time" format="integer" />
+        <attr name="custom_show_time" format="integer" />
+        <attr name="custom_duration" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="FlexLayout">
+        <attr name="custom_max_count" format="integer"/>
+    </declare-styleable>
 </resources>

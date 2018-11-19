@@ -86,7 +86,8 @@ public class HooyeeBaseActivity extends AppCompatActivity {
     private void initToolbar() {
         ViewStub viewStub;
         if (isWebActivity()) {
-            viewStub = findViewById(R.id.stub_toolbar_web);
+//            viewStub = findViewById(R.id.stub_toolbar_web);
+            viewStub = findViewById(R.id.stub_toolbar);
         } else {
             viewStub = findViewById(R.id.stub_toolbar);
         }

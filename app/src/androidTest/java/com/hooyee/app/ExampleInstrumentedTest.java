@@ -1,4 +1,4 @@
-package com.hooyee.base;
+package com.hooyee.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

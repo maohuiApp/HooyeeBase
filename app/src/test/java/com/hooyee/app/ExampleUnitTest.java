@@ -1,4 +1,4 @@
-package com.hooyee.base;
+package com.hooyee.app;
 
 import org.junit.Test;
 
