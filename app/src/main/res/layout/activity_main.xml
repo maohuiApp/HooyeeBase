@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <com.hooyee.base.ui.view.MovableView
         android:id="@+id/move_view"
@@ -13,54 +14,100 @@
 
     <TextView
         android:id="@+id/tv_code"
-        app:layout_constraintTop_toBottomOf="@id/move_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toBottomOf="@id/move_view" />
 
-    <TextView
+    <com.hooyee.base.ui.view.CollapsibleTextView
         android:id="@+id/tv_test1"
-        app:layout_constraintTop_toBottomOf="@id/move_view"
+        android:layout_width="match_parent"
+        android:background="#be241f"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="scroll测试"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:custom_fold_tip="展开"
+        app:custom_fold_icon_width="16dp"
+        app:custom_fold_icon_height="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/move_view" />
 
     <com.hooyee.base.ui.view.FlexLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:custom_max_count="8"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_test1"
         app:layout_constraintRight_toRightOf="parent"
-        app:custom_max_count="8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@id/tv_test1">
+
         <TextView
-            android:text="test1"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test1" />
+
         <TextView
-            android:text="test2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test2" />
+
         <TextView
-            android:text="test3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test3" />
+
         <TextView
-            android:text="test4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test4" />
+
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="test5"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:visibility="gone" />
+
         <TextView
-            android:text="test6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test6" />
+
         <TextView
-            android:text="test7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test7" />
     </com.hooyee.base.ui.view.FlexLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.hooyee.base.ui.view.CustomDateView
+            android:id="@+id/date_count_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="#FFF7EB"
+            android:paddingBottom="7dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="7dp"
+            app:custom_date_background="@drawable/ic_detail"
+            app:custom_date_text_color="#ffffff"
+            app:custom_date_text_size="14sp"
+            app:custom_separator_color="#F27B17"
+            app:custom_tip_text="倒计时提示："
+            app:custom_tip_text_color="#FFB637"
+            app:custom_tip_text_size="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit" />
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>

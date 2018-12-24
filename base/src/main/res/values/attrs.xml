@@ -18,4 +18,28 @@
     <declare-styleable name="FlexLayout">
         <attr name="custom_max_count" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="CustomDateView">
+        <attr name="custom_date_background_color" format="color" />
+        <attr name="custom_date_text_size" format="dimension" />
+        <attr name="custom_date_text_color" format="color" />
+        <attr name="custom_tip_text" format="string" />
+        <attr name="custom_tip_text_size" format="dimension" />
+        <attr name="custom_tip_text_color" format="color" />
+        <attr name="custom_separator_color" format="color" />
+        <attr name="custom_date_background" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="CollapsibleTextView">
+        <attr name="custom_fold_tip" format="string" />
+        <attr name="custom_unfold_tip" format="string" />
+        <attr name="custom_unfold_icon" format="reference" />
+        <attr name="custom_fold_icon" format="reference" />
+        <attr name="custom_fold_tip_size" format="dimension" />
+        <attr name="custom_tip_color" format="color" />
+        <attr name="custom_fold_icon_width" format="dimension" />
+        <attr name="custom_fold_icon_height" format="dimension" />
+        <attr name="custom_unfold_icon_width" format="dimension" />
+        <attr name="custom_unfold_icon_height" format="dimension" />
+        <attr name="custom_fold_marginTop" format="dimension" />
+        <attr name="custom_show_fold" format="boolean" />
+    </declare-styleable>
 </resources>

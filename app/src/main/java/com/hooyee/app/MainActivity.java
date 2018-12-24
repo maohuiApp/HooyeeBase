@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hooyee.base.helper.MessageContentObserver;
+import com.hooyee.base.ui.view.CustomDateView;
 import com.hooyee.base.ui.view.MovableView;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,10 +51,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_test1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), ScrollTestActivity.class));
+//                startActivity(new Intent(v.getContext(), ScrollTestActivity.class));
+                TextView tv = findViewById(R.id.tv_test1);
+                tv.setText("wlekjrrln难为了你发令肯定是你了可能撒拉开给你们了坑我呢欧冠in是蓝鸟给了我能提供了看着呢管理卡是哪个生理裤达芙妮了开始南芙妮了开始南芙妮了开始南方是大范围wlekjrrln难为了你发令肯定是你了可能撒拉开给你们了坑我呢欧冠in是蓝鸟给了我能提供了看着呢管理卡是哪个生理裤达芙妮了开始南方是大范围");
+
             }
         });
 
+
+        CustomDateView dateView = findViewById(R.id.date_count_down);
+        dateView.setTime(453221);
     }
 
     public String TimeStamp2Date(long timestampString) {
