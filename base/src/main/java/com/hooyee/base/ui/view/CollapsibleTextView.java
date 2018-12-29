@@ -125,9 +125,16 @@ public class CollapsibleTextView extends android.support.v7.widget.AppCompatText
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = super.onTouchEvent(event);
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            if (event.getY() > originalHeight) {
+            if (event.getY() > originalHeight - getPaddingBottom()) {
+                return true;
+            }
+        }
+
+        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+            if (event.getY() > originalHeight - getPaddingBottom()) {
                 folding = !folding;
                 statusChange(folding);
+                return true;
             }
         }
         return result;
@@ -159,7 +166,7 @@ public class CollapsibleTextView extends android.support.v7.widget.AppCompatText
 
         String text = getText().toString();
         if (MeasureSpec.AT_MOST == heightMode || MeasureSpec.UNSPECIFIED == heightMode) {
-            height = getLineHeight() * getLineCount() + getPaddingBottom() + foldMarginTop;
+            height = getLineHeight() * getLineCount() + foldMarginTop;
         }
 
         if (MeasureSpec.AT_MOST == widthMode) {
@@ -182,7 +189,6 @@ public class CollapsibleTextView extends android.support.v7.widget.AppCompatText
         } else if (!hasEllipse) {
             return;
         }
-
         if (currentTip != null) {
             canvas.drawText(currentTip, (getWidth() - currentDrawable.getBounds().width() - getTipWidth()) / 2, originalHeight + offset - tipPaint.getFontMetrics().bottom - (offset - getTipHeight()) / 2, tipPaint);
         }
@@ -195,7 +201,7 @@ public class CollapsibleTextView extends android.support.v7.widget.AppCompatText
         return currentTipRect.width();
     }
 
-    private float getTipHeight() {
+    private int getTipHeight() {
         if (currentTipRect == null) return 0;
         return currentTipRect.height();
     }
