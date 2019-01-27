@@ -42,4 +42,7 @@
         <attr name="custom_fold_marginTop" format="dimension" />
         <attr name="custom_show_fold" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="RippleTextView">
+        <attr name="custom_ripple_color" format="color" />
+    </declare-styleable>
 </resources>

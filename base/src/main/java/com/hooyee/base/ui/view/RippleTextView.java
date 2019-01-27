@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -15,10 +16,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.LinearInterpolator;
 
+import com.hooyee.base.R;
+
 
 /**
  * Created by maohui on 2017/3/6.
  * mail: hooyee01_moly@foxmail.com
+ * @descript 点击附带水波纹特效，主要应对设计图上没有给出点击互动效果，同时又改了背景颜色的button时使用（平时自然可以使用）
+ *             同时需要注意由于做了onTouch拦截，且未对onLongClick专项处理，故需要长按事件的，需要做处理，类似click的方式即可
+ *             不过需要反射拿到ListenerInfo，本人较懒
  */
 
 public class RippleTextView extends android.support.v7.widget.AppCompatTextView {
@@ -42,7 +48,17 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
 
     public RippleTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        rippleDrawable = new SimpleRippleDrawable(Color.parseColor("#dedede"));
+        initView(context, attrs);
+    }
+
+    private void initView(Context context, AttributeSet attrs) {
+        int color = Color.parseColor("#dedede");
+        if (attrs != null) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RippleTextView);
+            color = typedArray.getColor(R.styleable.RippleTextView_custom_ripple_color, color);
+            typedArray.recycle();
+        }
+        rippleDrawable = new SimpleRippleDrawable(color);
         rippleDrawable.setCallback(this);
         rippleDrawable.setCompleteListener(completeListener);
     }
@@ -72,8 +88,9 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
         }
         if (isClickable()) {
             rippleDrawable.onTouch(event);
+            return true;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -88,8 +105,11 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
     }
 
     class SimpleRippleDrawable extends Drawable {
-        public static final int ANIMATION_DURATION = 200;
-        public static final int ANIMATION_DURATION_LONG = 5000;
+        static final int ANIMATION_DURATION = 300;
+        static final int ANIMATION_DURATION_LONG = 5000;
+        static final int STATUS_CANCEL = -1;
+        static final int STATUS_NORMAL = 1;
+
 
         private IRippleCompleteListener completeListener;
 
@@ -128,15 +148,15 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
                 case MotionEvent.ACTION_DOWN:
                     pointX = event.getX();
                     pointY = event.getY();
-                    status = 0;
+                    status = STATUS_NORMAL;
                     startAnimation(ANIMATION_DURATION_LONG);
                     break;
                 case MotionEvent.ACTION_UP:
-                    status = 1;
+                    status = STATUS_NORMAL;
                     startAnimation(ANIMATION_DURATION);
                     break;
                 case MotionEvent.ACTION_CANCEL:
-                    status = -1;
+                    status = STATUS_CANCEL;
                     mAnimator.cancel();
                     break;
             }
@@ -152,14 +172,18 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         setRadius(0);
-                        if (getCompleteListener() != null && status != -1) {
+                        mAnimator.setDuration(ANIMATION_DURATION_LONG);
+                        if (getCompleteListener() != null && status != STATUS_CANCEL) {
                             getCompleteListener().onRippleComplete();
                         }
                     }
                 });
                 mAnimator.start();
             } else {
-                mAnimator.setDuration(duration);
+                float fraction = mAnimator.getAnimatedFraction();
+                float hasProcessed = fraction * mAnimator.getDuration();
+                int d = (int) (hasProcessed + (1 - fraction) * duration);
+                mAnimator.setDuration(d);
                 if (!mAnimator.isStarted() && !mAnimator.isRunning()) {
                     mAnimator.start();
                 }
@@ -175,9 +199,11 @@ public class RippleTextView extends android.support.v7.widget.AppCompatTextView 
         }
 
         public void detach() {
-            mAnimator.cancel();
+            status = STATUS_CANCEL;
+            if (mAnimator != null) {
+                mAnimator.cancel();
+            }
         }
-
 
         public float getRadius() {
             return radius;
