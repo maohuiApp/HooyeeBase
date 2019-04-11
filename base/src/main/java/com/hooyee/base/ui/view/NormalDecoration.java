@@ -32,17 +32,21 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
     private Paint mHeaderContentPaint;
 
     protected int headerHeight = 96;//头部高度
-    private int textPaddingLeft = 10;//头部文字左边距
+    private int textPaddingLeft = 0;//头部文字左边距
+    private int textPaddingTop = 0;//头部文字上边距
+    private int textPaddingRight = 0;//头部文字上边距
+    private int textPaddingBottom = 0;//头部文字上边距
     private int textSize = 40;
     private int textColor = Color.parseColor("#999999");
     private int headerContentColor = 0x000000;
     private final float txtYAxis;
     private RecyclerView mRecyclerView;
 
-    public NormalDecoration(int leftPx, int textSizePx) {
+    public NormalDecoration(int leftPx, int topPx, int rightPx, int bottomPx) {
         mHeaderTxtPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mHeaderTxtPaint.setColor(textColor);
-        textSize = textSizePx;
+//        textSize = ViewCommonUtils.spToPx(QDApplicationContext.getInstance(), 12);
+        textSize = 36;
         mHeaderTxtPaint.setTextSize(textSize);
         mHeaderTxtPaint.setTextAlign(Paint.Align.LEFT);
 
@@ -51,9 +55,11 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
         headerContentColor = Color.WHITE;
         mHeaderContentPaint.setColor(headerContentColor);
         Paint.FontMetrics fontMetrics = mHeaderTxtPaint.getFontMetrics();
-        float total = -fontMetrics.ascent + fontMetrics.descent;
-        txtYAxis = total / 2 - fontMetrics.descent;
+        txtYAxis = fontMetrics.descent - fontMetrics.ascent;
         textPaddingLeft = leftPx;
+        textPaddingTop = topPx;
+
+        headerHeight = (int) (txtYAxis + topPx + bottomPx);
     }
     private boolean isInitHeight = false;
 
@@ -70,7 +76,7 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
         if (headerDrawEvent != null && !isInitHeight) {
             View headerView = headerDrawEvent.getHeaderView(0);
             headerView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             headerHeight = headerView.getMeasuredHeight();
             isInitHeight = true;
         }
@@ -137,7 +143,7 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
                     if (headViewMap.get(pos) == null) {
                         headerView = headerDrawEvent.getHeaderView(pos);
                         headerView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                         headerView.setDrawingCacheEnabled(true);
                         headerView.layout(0, 0, right, headerHeight);//布局layout
                         headViewMap.put(pos, headerView);
@@ -151,7 +157,7 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
                     // 绘制背景颜色
                     canvas.drawRect(0, viewTop - headerHeight, right, viewTop, mHeaderContentPaint);
                     // -10 为了给右侧留出边距
-                    drawStringSingleLine(canvas, curHeaderName, textPaddingLeft, viewTop - headerHeight/2 + txtYAxis, mHeaderTxtPaint, right - left - 10);
+                    drawStringSingleLine(canvas, curHeaderName, textPaddingLeft,  viewTop - headerHeight + txtYAxis + textPaddingTop, mHeaderTxtPaint, right - left - 10);
                 }
                 if (headerHeight < viewTop && viewTop <= 2 * headerHeight) { //此判断是刚好2个头部碰撞，悬浮头部就要偏移
                     translateTop = viewTop - 2 * headerHeight;
@@ -190,7 +196,7 @@ public abstract class NormalDecoration extends RecyclerView.ItemDecoration {
             /*绘制悬浮的头部*/
             canvas.drawRect(0, 0, right, headerHeight, mHeaderContentPaint);
             // -10 为了给右侧留出边距
-            drawStringSingleLine(canvas, firstHeaderName, textPaddingLeft, headerHeight/2 + txtYAxis, mHeaderTxtPaint, right - left - 10);
+            drawStringSingleLine(canvas, firstHeaderName, textPaddingLeft,txtYAxis + textPaddingTop, mHeaderTxtPaint, right - left - 10);
 //           canvas.drawLine(0, headerHeight / 2, right, headerHeight / 2, mHeaderTxtPaint);//画条线看看文字居中不
         }
         canvas.restore();

@@ -15,8 +15,11 @@
         <attr name="custom_show_time" format="integer" />
         <attr name="custom_duration" format="integer" />
     </declare-styleable>
+
     <declare-styleable name="FlexLayout">
         <attr name="custom_max_count" format="integer"/>
+        <attr name="custom_view_horizontal_space" format="dimension" />
+        <attr name="custom_view_vertical_space" format="dimension" />
     </declare-styleable>
     <declare-styleable name="CustomDateView">
         <attr name="custom_date_background_color" format="color" />

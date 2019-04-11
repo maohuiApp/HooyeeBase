@@ -179,6 +179,7 @@ public class CollapsibleTextView extends android.support.v7.widget.AppCompatText
         height += offset + getPaddingBottom();
 
         setMeasuredDimension(width, height);
+
     }
 
     @Override

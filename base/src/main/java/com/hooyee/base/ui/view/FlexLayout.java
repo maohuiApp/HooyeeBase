@@ -11,11 +11,16 @@ import com.hooyee.base.R;
 /**
  * @author maohui
  * @date Created on 2018/11/19.
- * @description 一个会自动换行的布局
+ * @description 一个简单的会自动换行的布局，子view直接写在布局中即可
  * @added
  */
 public class FlexLayout extends ViewGroup {
+    /**
+     * 一行最多显示多少个子view
+     */
     private int mMaxCount;
+    private int horizontalSpace;
+    private int verticalSpace;
 
     public FlexLayout(Context context) {
         super(context);
@@ -35,12 +40,11 @@ public class FlexLayout extends ViewGroup {
     private void initView(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FlexLayout);
         mMaxCount = typedArray.getInteger(R.styleable.FlexLayout_custom_max_count, 5);
+        horizontalSpace = typedArray.getDimensionPixelSize(R.styleable.FlexLayout_custom_view_horizontal_space, 0);
+        verticalSpace = typedArray.getDimensionPixelSize(R.styleable.FlexLayout_custom_view_vertical_space, 0);
         typedArray.recycle();
     }
 
-    /**
-     * 计算控件及子控件所占区域
-     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -50,7 +54,7 @@ public class FlexLayout extends ViewGroup {
         int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
 
         if (widthSpecMode == MeasureSpec.EXACTLY) {
-            int widthSpec = MeasureSpec.makeMeasureSpec(widthSpecSize / mMaxCount, widthSpecMode);
+            int widthSpec = MeasureSpec.makeMeasureSpec((widthSpecSize - horizontalSpace * (mMaxCount - 1)) / mMaxCount, widthSpecMode);
             int heightSpec = MeasureSpec.makeMeasureSpec(heightSpecSize, heightSpecMode);
             measureChildren(widthSpec, heightSpec);
         } else {
@@ -75,10 +79,14 @@ public class FlexLayout extends ViewGroup {
                 offset--;
             }
 
+            if (line == 1) {
+                height = heightTmp;
+            }
+
             if (i + offset >= (mMaxCount * line)) {
                 // 换行
                 line++;
-                height += heightTmp;
+                height += heightTmp + verticalSpace;
                 heightTmp = 0;
                 width = width > widthTmp ? width : widthTmp;
                 widthTmp = 0;
@@ -92,19 +100,17 @@ public class FlexLayout extends ViewGroup {
 
         setMeasuredDimension((widthSpecMode == MeasureSpec.EXACTLY) ? widthSpecSize
                 : width, (heightSpecMode == MeasureSpec.EXACTLY) ? heightSpecSize
-                : height * lines);
+                : height);
     }
 
-    /**
-     * 控制子控件的换行
-     */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int left = 0;
-        int top = 0;
+        int left = getPaddingLeft();
+        int top = getPaddingTop();
         int line = 1;
         int count = getChildCount();
         int offset = 0;
+        int maxH = 0;
         for (int j = 0; j < count; j++) {
             final View childView = getChildAt(j);
             if (childView.getVisibility() == GONE) {
@@ -113,13 +119,18 @@ public class FlexLayout extends ViewGroup {
             }
             int w = childView.getMeasuredWidth();
             int h = childView.getMeasuredHeight();
-
+            maxH = maxH > h ? maxH : h;
+            if (j % mMaxCount != 0) {
+                left += horizontalSpace;
+            }
             childView.layout(left, top, left + w, top + h);
 
+            // 控制子view换行
             if (j + offset >= (mMaxCount * line) - 1) {
                 line++;
-                left = 0;
-                top += h;
+                left = getPaddingLeft();
+                top += maxH + verticalSpace;
+                maxH = 0;
             } else {
                 left += w;
             }
