@@ -1,4 +1,5 @@
 {
   show_display_ad: true,
-  show_home_ad: true
+  show_home_ad: true,
+  show_history_ad: false
 }
