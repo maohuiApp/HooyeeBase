@@ -4,5 +4,6 @@
 	"show_open_ad": true,
 	"show_history_ad": true,
 	"exception_enable": false,
+	"show_browser_ad": true,
 	"retry_count": 2
 }
