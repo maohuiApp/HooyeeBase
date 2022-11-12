@@ -2,7 +2,7 @@
 	"show_display_ad": true,
 	"show_home_ad": true,
 	"show_open_ad": true,
-	"show_history_ad": false,
+	"show_history_ad": true,
 	"exception_enable": false,
 	"show_browser_ad": true,
 	"retry_count": 2
